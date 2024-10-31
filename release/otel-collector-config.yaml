@@ -4,7 +4,7 @@ metadata:
   name: otel-collector-config
   namespace: default
 data:
-  otel-collector-config.yaml: |
+  otel-collector-config.yaml:
     receivers:
       prometheus:
         config:
@@ -12,7 +12,7 @@ data:
             - job_name: 'frontend'
               scrape_interval: 10s
               static_configs:
-                - targets: ['host.docker.internal:8080']
+                - targets: ['demo.example.com:8080']
     processors:
       batch:
         send_batch_size: 10000
