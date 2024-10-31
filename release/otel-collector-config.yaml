@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: otel-collector-config
+  namespace: default
 data:
   otel-collector-config.yaml: |
     receivers:
@@ -11,7 +12,7 @@ data:
             - job_name: 'frontend'
               scrape_interval: 10s
               static_configs:
-                - targets: ['demo.example.lan:8080']
+                - targets: ['frontend:8080']
     processors:
       batch:
         send_batch_size: 10000
