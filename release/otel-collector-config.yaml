@@ -22,7 +22,7 @@ data:
         endpoint: '0.0.0.0:9090'
         namespace: 'frontend'
         send_timestamps: true
-      logging:
+      debug:
         verbosity: detailed
     service:
       pipelines:
