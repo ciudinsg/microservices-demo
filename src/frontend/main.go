@@ -108,10 +108,6 @@ var (
 	})
 )
 
-func ping(w http.ResponseWriter, req *http.Request){
-   fmt.Fprintf(w,"pong")
-}
-
 func main() {
 	ctx := context.Background()
 	log := logrus.New()
@@ -185,11 +181,12 @@ func main() {
 	r.HandleFunc(baseUrl + "/_healthz", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
-  // Instrumenting the Frontend Microservice
+
+	// Instrumenting the Frontend Microservice
+	r.HandleFunc("/ping", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "pong") })
 	r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 
-	http.HandleFunc("/ping",ping)
-  http.ListenAndServe(":8090", nil)
+
 
 	
 	var handler http.Handler = r
