@@ -37,6 +37,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"net/http"
 )
 
 const (
@@ -181,9 +182,8 @@ func main() {
 	r.HandleFunc(baseUrl + "/_healthz", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
-  r.HandleFunc(baseUrl + "/metrics", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })
-	// Instrumenting the Frontend Microservice
-	// r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
+  // Instrumenting the Frontend Microservice
+	r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 	
 
 	
