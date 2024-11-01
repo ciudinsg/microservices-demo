@@ -108,6 +108,12 @@ var (
 	})
 )
 
+func init() {
+	prometheus.Register(requestLatency)
+	prometheus.Register(errorRate)
+	prometheus.Register(requestRate)
+}
+
 func main() {
 	ctx := context.Background()
 	log := logrus.New()
