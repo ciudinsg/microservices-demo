@@ -189,7 +189,9 @@ func main() {
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
 	
 	// Instrumenting the Frontend Microservice
-	r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
+	//r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
+	// Prometheus endpoint
+	r.Path("/metrics").Handler(promhttp.Handler())
 	// r.HandleFunc(baseUrl + "/ping", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "pong") })
 	//r.Path("/metrics").Handler(promhttp.Handler())
 
