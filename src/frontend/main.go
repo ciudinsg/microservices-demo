@@ -38,7 +38,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
-)
 
 const (
 	port            = "8080"
