@@ -6,9 +6,6 @@ metadata:
     kubernetes.io/ingress.class: nginx-example
 spec:
   ingressClassName: nginx-example
-  selector:
-    matchLabels:
-      app: frontend
   rules:
   - host: demo.example.com
   - http:
