@@ -183,7 +183,6 @@ func main() {
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
   // Instrumenting the Frontend Microservice
 	r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
-	http.ListenAndServe(":8090", nil)
 	
 
 	
