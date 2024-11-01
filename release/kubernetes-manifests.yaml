@@ -796,7 +796,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: frontend
   ports:
@@ -811,7 +811,7 @@ spec:
 #   labels:
 #     app: frontend
 # spec:
-#   type: LoadBalancer
+#   type: LoadBalancer | ClusterIP
 #   selector:
 #     app: frontend
 #   ports:
