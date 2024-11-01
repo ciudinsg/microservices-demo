@@ -183,7 +183,7 @@ func main() {
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
   // Instrumenting the Frontend Microservice
 	// r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
-	r.HandleFunc(baseUrl + "/metrics", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })	
+	r.HandleFunc(baseUrl + "/metrics", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "User-agent: *\nDisallow: /") })
 
 	
 	var handler http.Handler = r
