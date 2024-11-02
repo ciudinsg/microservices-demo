@@ -3,11 +3,11 @@ kind: ServiceMonitor
 metadata:
   name: frontend-servicemonitor
   labels:
-    app: frontend-external
+    app: frontend
 spec:
   selector:
     matchLabels:
-      name: frontend-external
+      app: frontend
   endpoints:
     - port: http
       path: /metrics
