@@ -148,7 +148,7 @@ spec:
         image: busybox:latest
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "frontend-external:80"
       containers:
       - name: main
         securityContext:
@@ -161,7 +161,7 @@ spec:
         image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.10.1
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "frontend-external:80"
         - name: USERS
           value: "10"
         resources:
