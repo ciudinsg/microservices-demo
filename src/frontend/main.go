@@ -189,10 +189,10 @@ func main() {
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
 	// Instrumenting the Frontend Microservice
-	s.HandleFunc("/about", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "About Page") })
+	s.HandleFunc(baseUrl + "/about", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "About Page") })
 	//r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
-	r.HandleFunc("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
-	r.HandleFunc(baseUrl + "/_test", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)
+	r.HandleFunc(baseUrl + "/metrics", promhttp.Handler()) // Exposes Prometheus metrics
+	r.HandleFunc(baseUrl + "/_test", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "test") })
 
 	var handler http.Handler = r
 	handler = &logHandler{log: log, next: handler}     // add logging
