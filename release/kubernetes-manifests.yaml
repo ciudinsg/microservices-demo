@@ -701,19 +701,19 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    name: frontend
+    app: frontend
 spec:
   selector:
     matchLabels:
-      name: frontend
+      app: frontend
   template:
     metadata:
       labels:
-        name: frontend
+        app: frontend
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
-      serviceAccountName: frontend
+      serviceAccountName: frontend-external
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -792,7 +792,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend
+  name: frontend-external
   labels:
     name: frontend
 spec:
@@ -822,7 +822,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: frontend
+  name: frontend-external
 ---
 apiVersion: apps/v1
 kind: Deployment
