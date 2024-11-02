@@ -184,16 +184,14 @@ func main() {
 	r.HandleFunc(baseUrl + "/assistant", svc.assistantHandler).Methods(http.MethodGet)
 	r.PathPrefix(baseUrl + "/static/").Handler(http.StripPrefix(baseUrl + "/static/", http.FileServer(http.Dir("./static/"))))
 	r.HandleFunc(baseUrl + "/robots.txt", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "User-agent: *\nDisallow: /") })
-	r.HandleFunc(baseUrl + "/_healthz", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })
+	r.HandleFunc(baseUrl + "/_healthz", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "cool") })
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
 	// Instrumenting the Frontend Microservice
-	r.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request){
-       fmt.Fprint(w, "About Page")
-  })
+	r.HandleFunc("/about", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "About Page") })
 	//r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 	r.HandleFunc("/metrics", promhttp.Handler()).Methods(http.MethodPost) // Exposes Prometheus metrics
-	r.HandleFunc(baseUrl + "/_test", func(w http.ResponseWriter, r *http.Request) { fmt.Fprint(w, "cool") })
+	r.HandleFunc(baseUrl + "/_test", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)
 
 	var handler http.Handler = r
 	handler = &logHandler{log: log, next: handler}     // add logging
