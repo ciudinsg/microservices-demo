@@ -190,7 +190,7 @@ func main() {
 	// Instrumenting the Frontend Microservice
 	r.HandleFunc("/about", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "About Page") })
 	//r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
-	r.HandleFunc("/metrics", promhttp.Handler()).Methods(http.MethodPost) // Exposes Prometheus metrics
+	r.HandleFunc("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 	r.HandleFunc(baseUrl + "/_test", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)
 
 	var handler http.Handler = r
