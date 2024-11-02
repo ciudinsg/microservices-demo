@@ -822,7 +822,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: frontend-external
+  name: frontend
 ---
 apiVersion: apps/v1
 kind: Deployment
