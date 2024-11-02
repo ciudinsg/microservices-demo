@@ -206,9 +206,9 @@ func main() {
 	r.HandleFunc(baseUrl + "/_healthz", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
-	
+	r.Handle("/metrics", promhttp.HandlerFor(r, promhttp.HandlerOpts{}))
 	// Instrumenting the Frontend Microservice
-	r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
+	// r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 	// Prometheus endpoint
 	// r.Path("/metrics").Handler(promhttp.Handler())
 	// r.HandleFunc(baseUrl + "/ping", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "pong") })
