@@ -3,7 +3,8 @@ kind: ServiceMonitor
 metadata:
   name: frontend-servicemonitor
   labels:
-    release: prometheus-operator
+    app: frontend
+    // release: prometheus-operator
 spec:
   selector:
     matchLabels:
