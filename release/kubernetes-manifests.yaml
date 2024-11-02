@@ -713,7 +713,7 @@ spec:
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
-      serviceAccountName: frontend-external
+      serviceAccountName: frontend
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
@@ -792,7 +792,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: frontend-external
+  name: frontend
   labels:
     app: frontend
 spec:
@@ -822,7 +822,7 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: frontend-external
+  name: frontend
 ---
 apiVersion: apps/v1
 kind: Deployment
