@@ -173,6 +173,7 @@ func main() {
 	mustConnGRPC(ctx, &svc.adSvcConn, svc.adSvcAddr)
 
 	r := mux.NewRouter()
+	s := r.PathPrefix("/about").Subrouter()
 	r.HandleFunc(baseUrl + "/", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)
 	r.HandleFunc(baseUrl + "/product/{id}", svc.productHandler).Methods(http.MethodGet, http.MethodHead)
 	r.HandleFunc(baseUrl + "/cart", svc.viewCartHandler).Methods(http.MethodGet, http.MethodHead)
@@ -188,7 +189,7 @@ func main() {
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
 	// Instrumenting the Frontend Microservice
-	r.HandleFunc("/about", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "About Page") })
+	s.HandleFunc("/about", func(w http.ResponseWriter, _ *http.Request){ fmt.Fprint(w, "About Page") })
 	//r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 	r.HandleFunc("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
 	r.HandleFunc(baseUrl + "/_test", svc.homeHandler).Methods(http.MethodGet, http.MethodHead)
