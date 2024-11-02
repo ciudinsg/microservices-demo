@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: frontend-servicemonitor
   labels:
-    name: frontend-external
+    app: frontend-external
 spec:
   selector:
     matchLabels:
