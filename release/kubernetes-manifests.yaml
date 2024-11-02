@@ -794,11 +794,11 @@ kind: Service
 metadata:
   name: frontend-external
   labels:
-    name: frontend
+    app: frontend
 spec:
   type: ClusterIP
   selector:
-    name: frontend
+    app: frontend
   ports:
   - name: http
     port: 80
