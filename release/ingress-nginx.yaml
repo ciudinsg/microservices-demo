@@ -14,6 +14,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            app: frontend
+            name: frontend-external
             port:
               number: 80
