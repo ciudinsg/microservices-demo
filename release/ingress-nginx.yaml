@@ -1,4 +1,4 @@
-apiVersion: networking.k8s.io/v1
+ternalapiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
@@ -14,6 +14,6 @@ spec:
         pathType: ImplementationSpecific
         backend:
           service:
-            name: frontend
+            name: frontend-external
             port:
               number: 80
