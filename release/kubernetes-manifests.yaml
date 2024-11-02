@@ -701,15 +701,15 @@ kind: Deployment
 metadata:
   name: frontend
   labels:
-    app: frontend
+    name: frontend
 spec:
   selector:
     matchLabels:
-      app: frontend
+      name: frontend
   template:
     metadata:
       labels:
-        app: frontend
+        name: frontend
       annotations:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
@@ -794,11 +794,11 @@ kind: Service
 metadata:
   name: frontend
   labels:
-    app: frontend
+    name: frontend
 spec:
   type: ClusterIP
   selector:
-    app: frontend
+    name: frontend
   ports:
   - name: http
     port: 80
