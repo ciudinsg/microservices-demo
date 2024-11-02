@@ -188,7 +188,7 @@ func main() {
 	r.HandleFunc(baseUrl + "/product-meta/{ids}", svc.getProductByID).Methods(http.MethodGet)
 	r.HandleFunc(baseUrl + "/bot", svc.chatBotHandler).Methods(http.MethodPost)
 	// Instrumenting the Frontend Microservice
-	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request){
+	r.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request){
        fmt.Fprint(w, "About Page")
   })
 	//r.Handle("/metrics", promhttp.Handler()) // Exposes Prometheus metrics
