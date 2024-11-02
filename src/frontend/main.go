@@ -108,29 +108,11 @@ var (
 	})
 )
 
-func init() {
-	prometheus.Register(requestLatency)
-	prometheus.Register(errorRate)
-	prometheus.Register(requestRate)
-}
-
-func prometheusMiddleware(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		route := mux.CurrentRoute(r)
-		path, _ := route.GetPathTemplate()
-
-		timer := prometheus.NewTimer(httpDuration.WithLabelValues(path))
-		rw := newResponseWriter(w)
-		next.ServeHTTP(rw, r)
-
-		statusCode := rw.statusCode
-
-		responseStatus.WithLabelValues(strconv.Itoa(statusCode)).Inc()
-		totalRequests.WithLabelValues(path).Inc()
-
-		timer.ObserveDuration()
-	})
-}
+// func init() {
+// 	prometheus.Register(requestLatency)
+// 	prometheus.Register(errorRate)
+// 	prometheus.Register(requestRate)
+// }
 
 func main() {
 	ctx := context.Background()
