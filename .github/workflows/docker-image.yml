@@ -15,3 +15,9 @@ jobs:
        uses: docker/build-push-action@v6
        with:
          context: "{{defaultContext}}:/src/frontend/"
+      -
+       name: publish files to artifact
+       uses: actions/upload-artifact@v2
+       with:
+         name: ${{github.run_number}}
+         path: upload/**
