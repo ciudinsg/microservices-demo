@@ -12,28 +12,35 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM golang:1.23.1-alpine@sha256:ac67716dd016429be8d4c2c53a248d7bcdf06d34127d3dc451bda6aa5a87bc06 AS builder
-WORKDIR /src
+FROM ubuntu:20.04
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends mysql-client \
+    && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["mysql"]
 
-# restore dependencies
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
 
-# Skaffold passes in debug-oriented compiler flags
-ARG SKAFFOLD_GO_GCFLAGS
-RUN CGO_ENABLED=0 GOOS=linux go build -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o /go/bin/frontend .
+# FROM golang:1.23.1-alpine@sha256:ac67716dd016429be8d4c2c53a248d7bcdf06d34127d3dc451bda6aa5a87bc06 AS builder
+# WORKDIR /src
 
-FROM scratch
-WORKDIR /src
-COPY --from=builder /go/bin/frontend /src/server
-COPY ./templates ./templates
-COPY ./static ./static
+# # restore dependencies
+# COPY go.mod go.sum ./
+# RUN go mod download
+# COPY . .
 
-# Definition of this variable is used by 'skaffold debug' to identify a golang binary.
-# Default behavior - a failure prints a stack trace for the current goroutine.
-# See https://golang.org/pkg/runtime/
-ENV GOTRACEBACK=single
+# # Skaffold passes in debug-oriented compiler flags
+# ARG SKAFFOLD_GO_GCFLAGS
+# RUN CGO_ENABLED=0 GOOS=linux go build -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o /go/bin/frontend .
 
-EXPOSE 8080
-ENTRYPOINT ["/src/server"]
+# FROM scratch
+# WORKDIR /src
+# COPY --from=builder /go/bin/frontend /src/server
+# COPY ./templates ./templates
+# COPY ./static ./static
+
+# # Definition of this variable is used by 'skaffold debug' to identify a golang binary.
+# # Default behavior - a failure prints a stack trace for the current goroutine.
+# # See https://golang.org/pkg/runtime/
+# ENV GOTRACEBACK=single
+
+# EXPOSE 8080
+# ENTRYPOINT ["/src/server"]
