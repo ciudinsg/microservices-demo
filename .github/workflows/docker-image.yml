@@ -12,8 +12,9 @@ jobs:
 
     steps:
       -
-        name: Build the Docker image
-        uses: actions/checkout@v4
-        with:
-          context: ./src/frontend/
-        run: docker build . --tag rontend:$(date +%s)
+       uses: actions/checkout@v4
+       with:
+         context: ./src/frontend/
+      -
+       name: Build the Docker image
+       run: docker build . --tag rontend:$(date +%s)
