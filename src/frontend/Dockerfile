@@ -12,12 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM ubuntu:20.04
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends mysql-client \
-    && rm -rf /var/lib/apt/lists/*
+FROM alpine:3.14
+RUN apk add --no-cache mysql-client
 ENTRYPOINT ["mysql"]
-
 
 # FROM golang:1.23.1-alpine@sha256:ac67716dd016429be8d4c2c53a248d7bcdf06d34127d3dc451bda6aa5a87bc06 AS builder
 # WORKDIR /src
