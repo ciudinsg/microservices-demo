@@ -14,7 +14,7 @@ jobs:
       -
        uses: docker/build-push-action@v6
        with:
-         context: ./src/frontend/
+         context: "{{defaultContext}}:/src/frontend/"
       -
        name: Build the Docker image
        run: docker build . --tag rontend:$(date +%s)
