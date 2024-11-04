@@ -19,5 +19,6 @@ jobs:
        name: publish files to artifact
        uses: actions/upload-artifact@v4
        with:
+         context: "{{defaultContext}}:/src/frontend/"
          name: ${{github.run_number}}
-         path: upload/**
+         path: .
